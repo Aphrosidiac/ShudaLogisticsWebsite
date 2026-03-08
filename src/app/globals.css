@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 :root {
+  --purple-primary: #6B2D8B;
+  --purple-dark: #4A1D63;
+  --purple-light: #9B4DC8;
+  --purple-muted: #E8D5F5;
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -8,19 +12,102 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-purple-primary: var(--purple-primary);
+  --color-purple-dark: var(--purple-dark);
+  --color-purple-light: var(--purple-light);
+  --color-purple-muted: var(--purple-muted);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--purple-primary);
+  border-radius: 3px;
+}
+
+/* Speed line animation */
+@keyframes speedLine {
+  0% { transform: translateX(-100%); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateX(100vw); opacity: 0; }
+}
+
+/* Truck drive-in */
+@keyframes truckDriveIn {
+  0% { transform: translateX(-120%); }
+  70% { transform: translateX(5%); }
+  85% { transform: translateX(-1%); }
+  100% { transform: translateX(0%); }
+}
+
+/* Pulse ring */
+@keyframes pulseRing {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(1.2); opacity: 0; }
+}
+
+/* Float */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Particle drift */
+@keyframes drift {
+  0% { transform: translateX(0) translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 0.6; }
+  100% { transform: translateX(var(--drift-x, 100px)) translateY(var(--drift-y, -100px)); opacity: 0; }
+}
+
+.animate-truck-in {
+  animation: truckDriveIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-pulse-ring {
+  animation: pulseRing 1.8s ease-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Curtain reveal */
+.curtain-reveal {
+  position: relative;
+  overflow: hidden;
+}
+
+.curtain-reveal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--purple-primary);
+  transform-origin: left;
+}
+
+/* Magnetic card tilt */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease;
 }
