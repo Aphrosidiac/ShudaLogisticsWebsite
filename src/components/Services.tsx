@@ -59,7 +59,7 @@ export default function Services() {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <section id="services" className="py-28 bg-white">
+    <section id="services" className="py-16 sm:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Header */}
@@ -84,7 +84,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="text-gray-500 text-lg leading-relaxed"
+            className="text-gray-500 text-base sm:text-lg leading-relaxed"
           >
             From single parcels to full truckloads — we move your goods daily across the most important corridors in Malaysia.
           </motion.p>
@@ -101,7 +101,7 @@ export default function Services() {
               transition={{ duration: 0.5, delay: i * 0.08 }}
               onMouseEnter={() => setHovered(i)}
               onMouseLeave={() => setHovered(null)}
-              className="group relative grid grid-cols-12 gap-6 items-center py-8 cursor-default overflow-hidden"
+              className="group relative grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-6 items-start sm:items-center py-6 sm:py-8 cursor-default overflow-hidden"
             >
               {/* Hover fill — slides in from left */}
               <div
@@ -123,8 +123,64 @@ export default function Services() {
                 {service.num}
               </div>
 
-              {/* Number */}
-              <div className="relative col-span-1">
+              {/* Mobile layout: icon + title row */}
+              <div className="relative sm:hidden flex items-center gap-4">
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300"
+                  style={{
+                    background: hovered === i ? "rgba(255,255,255,0.15)" : "#F3EEF9",
+                    color: hovered === i ? "white" : "#6B2D8B",
+                  }}
+                >
+                  {service.icon}
+                </div>
+                <div>
+                  <h3
+                    className="font-black text-lg transition-colors duration-300"
+                    style={{ color: hovered === i ? "white" : "#111827" }}
+                  >
+                    {service.title}
+                  </h3>
+                  <div
+                    className="text-sm font-medium transition-colors duration-300"
+                    style={{ color: hovered === i ? "rgba(255,255,255,0.6)" : "#9B4DC8" }}
+                  >
+                    {service.chinese}
+                  </div>
+                </div>
+                <span
+                  className="font-black text-xs ml-auto transition-colors duration-300"
+                  style={{ color: hovered === i ? "rgba(255,255,255,0.4)" : "#D8B4FE" }}
+                >
+                  {service.num}
+                </span>
+              </div>
+
+              {/* Mobile: description */}
+              <div className="relative sm:hidden">
+                <p
+                  className="text-sm leading-relaxed transition-colors duration-300"
+                  style={{ color: hovered === i ? "rgba(255,255,255,0.75)" : "#6B7280" }}
+                >
+                  {service.description}
+                </p>
+              </div>
+
+              {/* Mobile: tag pill */}
+              <div className="relative sm:hidden flex items-center gap-2">
+                <span
+                  className="text-xs font-semibold px-3 py-1 rounded-full transition-all duration-300"
+                  style={{
+                    background: hovered === i ? "rgba(255,255,255,0.15)" : "#F3EEF9",
+                    color: hovered === i ? "rgba(255,255,255,0.8)" : "#6B2D8B",
+                  }}
+                >
+                  {service.tag}
+                </span>
+              </div>
+
+              {/* Desktop: Number */}
+              <div className="relative hidden sm:block sm:col-span-1">
                 <span
                   className="font-black text-sm transition-colors duration-300"
                   style={{ color: hovered === i ? "rgba(255,255,255,0.4)" : "#D8B4FE" }}
@@ -133,8 +189,8 @@ export default function Services() {
                 </span>
               </div>
 
-              {/* Icon */}
-              <div className="relative col-span-1">
+              {/* Desktop: Icon */}
+              <div className="relative hidden sm:block sm:col-span-1">
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300"
                   style={{
@@ -146,8 +202,8 @@ export default function Services() {
                 </div>
               </div>
 
-              {/* Title */}
-              <div className="relative col-span-3">
+              {/* Desktop: Title */}
+              <div className="relative hidden sm:block sm:col-span-3">
                 <h3
                   className="font-black text-xl transition-colors duration-300"
                   style={{ color: hovered === i ? "white" : "#111827" }}
@@ -162,8 +218,8 @@ export default function Services() {
                 </div>
               </div>
 
-              {/* Description */}
-              <div className="relative col-span-5">
+              {/* Desktop: Description */}
+              <div className="relative hidden sm:block sm:col-span-5">
                 <p
                   className="text-sm leading-relaxed transition-colors duration-300"
                   style={{ color: hovered === i ? "rgba(255,255,255,0.75)" : "#6B7280" }}
@@ -172,8 +228,8 @@ export default function Services() {
                 </p>
               </div>
 
-              {/* Tag + Arrow */}
-              <div className="relative col-span-2 flex items-center justify-end gap-3">
+              {/* Desktop: Tag + Arrow */}
+              <div className="relative hidden sm:flex sm:col-span-2 items-center justify-end gap-3">
                 <span
                   className="hidden lg:block text-xs font-semibold px-3 py-1 rounded-full transition-all duration-300 whitespace-nowrap"
                   style={{

@@ -73,7 +73,7 @@ const features = [
 
 export default function WhyUs() {
   return (
-    <section className="py-28 bg-[#F3EEF9] relative overflow-hidden">
+    <section className="py-16 sm:py-28 bg-[#F3EEF9] relative overflow-hidden">
       {/* Faint radial gradient top-right */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-purple-100/60 blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/4" />
 
@@ -207,11 +207,11 @@ export default function WhyUs() {
                 Hundreds of businesses across Johor, Malacca, and KL rely on Shuda for their regular freight needs — from manufacturers to retailers.
               </p>
             </div>
-            <div className="relative flex-shrink-0 flex gap-4">
+            <div className="relative flex-shrink-0 grid grid-cols-3 gap-3 sm:gap-4 w-full sm:w-auto">
               {[["500+", "Monthly Deliveries"], ["3", "States"], ["10+", "Years Running"]].map(([num, label]) => (
-                <div key={label} className="text-center bg-white/5 rounded-2xl px-5 py-4 border border-white/10">
-                  <div className="text-white font-black text-2xl">{num}</div>
-                  <div className="text-white/40 text-xs mt-0.5 whitespace-nowrap">{label}</div>
+                <div key={label} className="text-center bg-white/5 rounded-2xl px-3 sm:px-5 py-3 sm:py-4 border border-white/10">
+                  <div className="text-white font-black text-xl sm:text-2xl">{num}</div>
+                  <div className="text-white/40 text-[10px] sm:text-xs mt-0.5">{label}</div>
                 </div>
               ))}
             </div>

@@ -5,9 +5,9 @@ import Image from "next/image";
 
 export default function About() {
   return (
-    <section id="about" className="py-24 bg-white">
+    <section id="about" className="py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Visual */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -43,7 +43,7 @@ export default function About() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="absolute -bottom-6 -right-4 bg-white rounded-2xl p-4 shadow-xl border border-gray-100"
+              className="absolute -bottom-6 right-2 sm:-right-4 bg-white rounded-2xl p-4 shadow-xl border border-gray-100"
             >
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-[#6B2D8B]/10 flex items-center justify-center">

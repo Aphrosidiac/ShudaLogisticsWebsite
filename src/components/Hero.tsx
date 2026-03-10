@@ -83,7 +83,7 @@ export default function Hero() {
 
       <FloatingParticles />
 
-      <div className="relative max-w-7xl mx-auto px-6 pt-28 pb-20 w-full">
+      <div className="relative max-w-7xl mx-auto px-6 pt-24 sm:pt-28 pb-16 sm:pb-20 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Text side */}
           <div>
@@ -104,21 +104,21 @@ export default function Hero() {
                 initial={{ y: 60, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1.5, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight"
               >
                 Delivering
               </motion.h1>
             </div>
 
             {/* Animated rotating word */}
-            <div className="h-20 md:h-24 overflow-hidden mb-4">
+            <div className="h-16 sm:h-20 md:h-24 overflow-hidden mb-4">
               <motion.div
                 key={wordIndex}
                 initial={{ y: 60, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -60, opacity: 0 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="text-5xl md:text-6xl lg:text-7xl font-black text-[#C084FC] leading-tight"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#C084FC] leading-tight"
               >
                 {words[wordIndex]}
               </motion.div>

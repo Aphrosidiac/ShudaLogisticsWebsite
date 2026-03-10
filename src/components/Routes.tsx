@@ -178,11 +178,11 @@ export default function Routes() {
               return (
                 <motion.div
                   key={city.name}
-                  className="flex flex-col items-center text-center max-w-[140px]"
+                  className="flex flex-col items-center text-center max-w-[90px] sm:max-w-[140px]"
                   animate={{ opacity: active ? 1 : 0.3 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <div className="text-white font-black text-lg md:text-xl mb-0.5 leading-tight">
+                  <div className="text-white font-black text-sm sm:text-lg md:text-xl mb-0.5 leading-tight">
                     {city.name}
                   </div>
                   <div
