@@ -29,20 +29,40 @@ const THRESHOLDS = [0.02, 0.5, 0.97];
 
 export default function Routes() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const fillRef = useRef<HTMLDivElement>(null);
+  const truckRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-120px" });
-  const [progress, setProgress] = useState(0);
+  const [activeCities, setActiveCities] = useState(0); // number of cities reached
 
   useEffect(() => {
     if (!inView) return;
     let frame: number;
     let p = 0;
+    let reached = 0;
     const step = () => {
       p += 0.004;
-      if (p <= 1) {
-        setProgress(p);
+      if (p > 1) p = 1;
+
+      // Update DOM directly — no React re-render needed
+      if (fillRef.current) {
+        fillRef.current.style.width = `${p * 100}%`;
+      }
+      if (truckRef.current) {
+        truckRef.current.style.left = `calc(${p * 100}% - 18px)`;
+      }
+
+      // Only trigger React re-render when crossing a threshold
+      let newReached = 0;
+      for (let i = 0; i < THRESHOLDS.length; i++) {
+        if (p >= THRESHOLDS[i]) newReached = i + 1;
+      }
+      if (newReached !== reached) {
+        reached = newReached;
+        setActiveCities(newReached);
+      }
+
+      if (p < 1) {
         frame = requestAnimationFrame(step);
-      } else {
-        setProgress(1);
       }
     };
     const delay = setTimeout(() => { frame = requestAnimationFrame(step); }, 500);
@@ -95,22 +115,22 @@ export default function Routes() {
 
             {/* Animated fill line */}
             <div
-              className="absolute left-0 top-1/2 -translate-y-1/2 h-1 rounded-full transition-none"
+              ref={fillRef}
+              className="absolute left-0 top-1/2 -translate-y-1/2 h-1 rounded-full"
               style={{
-                width: `${progress * 100}%`,
+                width: "0%",
                 background: "linear-gradient(90deg, #A855F7, #C084FC)",
                 boxShadow: "0 0 12px rgba(168,85,247,0.7)",
-                transition: "width 0.05s linear",
               }}
             />
 
             {/* Truck icon */}
             <div
+              ref={truckRef}
               className="absolute top-1/2 z-20 pointer-events-none"
               style={{
-                left: `calc(${progress * 100}% - 18px)`,
+                left: "calc(0% - 18px)",
                 transform: "translateY(-50%)",
-                transition: "left 0.05s linear",
               }}
             >
               {/* Light trail */}
@@ -143,7 +163,7 @@ export default function Routes() {
 
             {/* City nodes */}
             {cities.map((city, i) => {
-              const active = progress >= THRESHOLDS[i];
+              const active = i < activeCities;
               return (
                 <div key={city.name} className="relative z-10 flex flex-col items-center">
                   {/* Outer pulse ring */}
@@ -174,7 +194,7 @@ export default function Routes() {
           {/* City labels — below the track */}
           <div className="flex justify-between mt-8">
             {cities.map((city, i) => {
-              const active = progress >= THRESHOLDS[i];
+              const active = i < activeCities;
               return (
                 <motion.div
                   key={city.name}
