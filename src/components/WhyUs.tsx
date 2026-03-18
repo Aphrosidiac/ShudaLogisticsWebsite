@@ -208,7 +208,7 @@ export default function WhyUs() {
               </p>
             </div>
             <div className="relative flex-shrink-0 grid grid-cols-3 gap-3 sm:gap-4 w-full sm:w-auto">
-              {[["500+", "Monthly Deliveries"], ["3", "States"], ["10+", "Years Running"]].map(([num, label]) => (
+              {[["500+", "Monthly Deliveries"], ["4", "States"], ["10+", "Years Running"]].map(([num, label]) => (
                 <div key={label} className="text-center bg-white/5 rounded-2xl px-3 sm:px-5 py-3 sm:py-4 border border-white/10">
                   <div className="text-white font-black text-xl sm:text-2xl">{num}</div>
                   <div className="text-white/40 text-[10px] sm:text-xs mt-0.5">{label}</div>

@@ -17,6 +17,12 @@ const cities = [
     sub: "Express transit point",
   },
   {
+    name: "Seremban",
+    chinese: "芙蓉",
+    desc: "N. Sembilan hub",
+    sub: "Strategic midpoint",
+  },
+  {
     name: "Kuala Lumpur",
     chinese: "吉隆坡",
     desc: "Capital delivery",
@@ -25,7 +31,7 @@ const cities = [
 ];
 
 // At what truck progress (0–1) each city activates
-const THRESHOLDS = [0.02, 0.5, 0.97];
+const THRESHOLDS = [0.02, 0.35, 0.65, 0.97];
 
 export default function Routes() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -100,7 +106,7 @@ export default function Routes() {
             We Cover the <span className="text-[#C084FC]">West Coast</span>
           </h2>
           <p className="text-white/50 max-w-xl mx-auto">
-            Departing daily — connecting Malaysia's three most important commercial corridors.
+            Departing daily — connecting Malaysia's four most important commercial corridors.
           </p>
         </motion.div>
 

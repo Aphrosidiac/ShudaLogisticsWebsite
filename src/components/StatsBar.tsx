@@ -5,7 +5,7 @@ import { useInView } from "framer-motion";
 
 const stats = [
   { value: 500, suffix: "+", label: "Deliveries / Month", chinese: "每月配送" },
-  { value: 3, suffix: "", label: "States Covered", chinese: "覆盖州属" },
+  { value: 4, suffix: "", label: "States Covered", chinese: "覆盖州属" },
   { value: 10, suffix: "+", label: "Years Experience", chinese: "年营运经验" },
   { value: 100, suffix: "%", label: "Daily Departures", chinese: "每日准时出发" },
 ];
