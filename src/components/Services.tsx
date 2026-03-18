@@ -101,7 +101,7 @@ export default function Services() {
               transition={{ duration: 0.5, delay: i * 0.08 }}
               onMouseEnter={() => setHovered(i)}
               onMouseLeave={() => setHovered(null)}
-              className="group relative grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-6 items-start sm:items-center py-6 sm:py-8 cursor-default overflow-hidden"
+              className="group relative grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-6 items-start sm:items-center py-6 sm:py-8 px-4 sm:px-6 cursor-default overflow-hidden"
             >
               {/* Hover fill — slides in from left */}
               <div
