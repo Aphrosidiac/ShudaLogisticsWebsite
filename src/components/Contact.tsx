@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const WHATSAPP_NUMBER = "60127239510";
 
 const cargoTypes = ["General Goods", "Electronics", "Furniture", "Food & Beverages", "Industrial Parts", "Other"];
-const cities = ["Johor", "Malacca", "Kuala Lumpur"];
+const cities = ["Johor", "Malacca", "Seremban", "Kuala Lumpur"];
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -94,7 +94,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <div className="text-xs text-gray-400 mb-0.5">Coverage</div>
-                  <div className="font-semibold text-gray-900">Johor · Malacca · Kuala Lumpur</div>
+                  <div className="font-semibold text-gray-900">Johor · Malacca · Seremban · KL</div>
                 </div>
               </div>
 
