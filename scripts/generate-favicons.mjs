@@ -7,43 +7,63 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
 const srcImage = join(root, 'public', 'favicon-source.png');
 
+// Dilate (thicken) white pixels by radius — spreads lines outward
+function dilate(data, width, height, radius) {
+  const out = Buffer.alloc(data.length);
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const idx = (y * width + x) * 4;
+      let maxAlpha = 0;
+      // Check all neighbors within radius
+      for (let dy = -radius; dy <= radius; dy++) {
+        for (let dx = -radius; dx <= radius; dx++) {
+          const nx = x + dx, ny = y + dy;
+          if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+            const nIdx = (ny * width + nx) * 4;
+            if (data[nIdx + 3] > maxAlpha) {
+              maxAlpha = data[nIdx + 3];
+            }
+          }
+        }
+      }
+      out[idx] = 255;     // R
+      out[idx + 1] = 255; // G
+      out[idx + 2] = 255; // B
+      out[idx + 3] = maxAlpha;
+    }
+  }
+  return out;
+}
+
 async function generate() {
   const canvasSize = 512;
-  const padding = 60;
+  const padding = 40; // less padding so truck is bigger in small icons
   const truckArea = canvasSize - padding * 2;
 
   // Resize source
-  const truckResized = await sharp(srcImage)
+  const { data, info } = await sharp(srcImage)
     .resize(truckArea, truckArea, { fit: 'contain', background: { r: 230, g: 230, b: 230, alpha: 255 } })
     .raw()
     .toBuffer({ resolveWithObject: true });
 
-  const { data, info } = truckResized;
-
-  // Color threshold: background is light grey (R,G,B all > 200)
-  // Truck is purple (R < 180, B > R, generally darker)
-  // Convert truck pixels to white, background to transparent
+  // Color threshold: extract truck (dark/purple pixels) as white on transparent
   for (let i = 0; i < data.length; i += 4) {
     const r = data[i], g = data[i + 1], b = data[i + 2];
     const brightness = (r + g + b) / 3;
 
     if (brightness > 180) {
-      // Background pixel — make transparent
-      data[i] = 0;
-      data[i + 1] = 0;
-      data[i + 2] = 0;
-      data[i + 3] = 0;
+      data[i] = 0; data[i + 1] = 0; data[i + 2] = 0; data[i + 3] = 0;
     } else {
-      // Truck pixel — make white, with opacity based on how dark/saturated it is
       const opacity = Math.min(255, Math.round((220 - brightness) * 2.5));
-      data[i] = 255;
-      data[i + 1] = 255;
-      data[i + 2] = 255;
+      data[i] = 255; data[i + 1] = 255; data[i + 2] = 255;
       data[i + 3] = Math.max(0, Math.min(255, opacity));
     }
   }
 
-  const whiteTruckBuffer = await sharp(data, { raw: { width: info.width, height: info.height, channels: 4 } })
+  // Dilate the truck lines by 3px to make them bolder
+  const dilated = dilate(data, info.width, info.height, 3);
+
+  const whiteTruckBuffer = await sharp(dilated, { raw: { width: info.width, height: info.height, channels: 4 } })
     .png()
     .toBuffer();
 
@@ -59,11 +79,7 @@ async function generate() {
   </svg>`;
 
   const master = await sharp(Buffer.from(bgSvg))
-    .composite([{
-      input: whiteTruckBuffer,
-      top: padding,
-      left: padding,
-    }])
+    .composite([{ input: whiteTruckBuffer, top: padding, left: padding }])
     .png()
     .toBuffer();
 
